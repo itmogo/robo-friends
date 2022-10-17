@@ -13,7 +13,7 @@ import './App.css';
 // to create a state 
 //first we need an constructor function
 // with a super () class holding the state
-// this enbles robots to be assessed using this.state.robots
+// this enables robots to be assessed using this.state.robots
 
 
 
@@ -21,13 +21,24 @@ class App extends Component{
  constructor(){
  	super()
  	this.state={
- 		robots: robots,
- 		searchfield: ''
+ 		robots: [], // what to use api 
+ 		searchfield: ' '
  	}
  }
 
+ // what to api
+ // lifecycle of component
+ 	componentDidMount(){
+		// console.log(check);
+		//api fetch
+		fetch('https://jsonplaceholder.typicode.com/users')
+		.then(response=>response.json())
+		.then(users => this.setState({robots: users}));	
+		// .then(users => {});	 // loading so wait	
+	}
 
-//now we creat an event - onsearchchange function to respond to search input 
+
+//now we create an event - onsearchchange function to respond to search input 
 // this event is now linked to the searchbox component as below
 // using this.onSearchChange because it is a class component
 // then move to searchBox component and add as function
@@ -56,8 +67,12 @@ onSearchChange = (event) => {
 		const filteredRobots = this.state.robots.filter(robots =>{
 		return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
 	} )
+		// adding a loading if statement in case there is a delay
+		if(this.state.robots.length === 0){
+			return <h1>Loading so wait...</h1>
+		} else {
 
-		return (
+				return (
 
 				<div className='tc'>
 					<h1 className='f1' > RoboFriends </h1>
@@ -66,6 +81,7 @@ onSearchChange = (event) => {
 					<CardList robots={filteredRobots} />
 				</div>
 			);
+		}
 	}
 	
 }
