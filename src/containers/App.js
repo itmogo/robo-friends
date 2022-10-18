@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import CardList from './CardList';
+import CardList from '../components/CardList';
 // import {robots} from './robots';
-import SearchBox from './SearchBox';
+import SearchBox from '../components/SearchBox';
 import './App.css';
-import Scroll from './Scroll';
+import Scroll from '../components/Scroll';
 
 
 //defining a state - describe what our app is about
@@ -65,11 +65,13 @@ onSearchChange = (event) => {
 }
 	render(){
 		// we need filteredrobots to be displayed
-		const filteredRobots = this.state.robots.filter(robots =>{
-		return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+		// using destructing to remove this.state
+		const {robots, searchfield} = this.state;
+		const filteredRobots = robots.filter(robot =>{
+		return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 	} )
 		// adding a loading if statement in case there is a delay
-		if(this.state.robots.length === 0){
+		if(robots.length === 0){
 			return <h1>Loading so wait...</h1>
 		} else {
 
