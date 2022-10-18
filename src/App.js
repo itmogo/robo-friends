@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import CardList from './CardList';
-import {robots} from './robots';
+// import {robots} from './robots';
 import SearchBox from './SearchBox';
 import './App.css';
+import Scroll from './Scroll';
 
 
 //defining a state - describe what our app is about
@@ -77,8 +78,10 @@ onSearchChange = (event) => {
 				<div className='tc'>
 					<h1 className='f1' > RoboFriends </h1>
 					<SearchBox   searchChange={this.onSearchChange} />
-					
-					<CardList robots={filteredRobots} />
+					<Scroll>
+						<CardList robots={filteredRobots} />
+					</Scroll>
+				
 				</div>
 			);
 		}
